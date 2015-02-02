@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<title>What's Open?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<style>
+img {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+</style>
+</head>
+<body>
+<script src="js/geoPosition.js"></script>
+<script>
+$(document).ready( function(){
+
+if(geoPosition.init()){
+	geoPosition.getCurrentPosition(geoSuccess, geoError);
+}
+
+function showResults(results){	
+
+		//Builds ordered list of results	
+		str = "<h2>Where you can eat right now, ranked by distance</h2>"	
+ 		      + "<ol data-role='listview' data-inset='true' class='ui-listview ui-listview-inset ui-corner-all ui-shadow'>";
+		$.each(results, function(index, item){
+			icon = item.icon;
+			name = item.name;
+			address = item.vicinity
+			str += "<li class='ui-li-static ui-body-inherit ui-first-child'>" 
+			    +"<h3>" + name + "</h3><br>" + address + "<img src='" + icon + "' width='53' height='53'></li>";
+		});
+
+		str += "</ol>";
+		//console.log(str);
+
+		$("#results").html(str);
+}
+
+function geoSuccess(p){
+	console.log("Found user's location at " + p.coords.latitude + ", " + p.coords.longitude);
+	//AJAX this up - get JSON response from the server
+	url = "/open?lat=" + p.coords.latitude + "&long=" + p.coords.longitude; //Build the URL string
+	$.getJSON(url, function(data) {
+		if(data.status == 'OK'){
+			showResults(data.results);		
+		} else {
+			$("#results").html("Something went wrong. We're working on it!");
+		}
+	});	
+}
+
+function geoError(p){
+	alert("Couldn't find your location. We kind of need that");
+}
+
+});
+</script>
+<div data-role="page">
+	<div data-role="header"><h1>What's Open?</h1></div>
+	<div role="main" class="ui-content" id="results"><h2>When you need to know where you can eat, right now</h2></div>
+	<div data-role="footer">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+</div>
+</body>
+</html>
