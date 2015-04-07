@@ -13,20 +13,4 @@ handlers:
 
 libraries:
 - name: ssl
-=======
-application: what-open
-version: 1
-runtime: python27
-api_version: 1
-threadsafe: no
-
-handlers:
-- url: /js
-  static_dir: js
-
-- url: /.*
-  script: code.app
-
-libraries:
-- name: ssl
   version: latest
