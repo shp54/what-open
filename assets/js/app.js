@@ -4,21 +4,25 @@ if(geoPosition.init()){
 	geoPosition.getCurrentPosition(geoSuccess, geoError);
 }
 
-function showResults(results){	
+function showResults(data){	
 
 		//Builds ordered list of results	
-		var arr = ["<h2>Where you can eat right now, ranked by distance</h2>", "<ul class='list-group'>"];
+		var results = [];
 	
-		$.each(results, function(index, item){
-			icon = item.icon;
-			name = item.name;
-			address = item.vicinity;
-			var html = "<li class='list-group-item'>" + "<h3>" + name + "</h3><span class='address'>" + address + "</span><img src='" + icon + "' width='53' height='53'></li>";
-			arr.push(html);
+		$.each(data, function(index, item){
+			var result = {
+				icon: item.icon,
+				name: item.name,
+				address: item.vicinity
+			};
+
+			results.push(result);
 		});
 
-		arr.push("</ul>");
-		$("#results").html(arr.join("\n"));
+		var template = Handlebars.compile($("#results-template").text());
+		var rendered = template({results: results});
+	
+		$("#results").html(rendered);
 }
 
 function geoSuccess(p){
