@@ -7,18 +7,18 @@ if(geoPosition.init()){
 function showResults(results){	
 
 		//Builds ordered list of results	
-		str = "<h2>Where you can eat right now, ranked by distance</h2>"	
- 		      + "<ol data-role='listview' data-inset='true' class='ui-listview ui-listview-inset ui-corner-all ui-shadow'>";
+		var arr = [ "<h2>Where you can eat right now, ranked by distance</h2>", "<ol data-role='listview' data-inset='true' class='ui-listview ui-listview-inset ui-corner-all ui-shadow'>"];
+	
 		$.each(results, function(index, item){
 			icon = item.icon;
 			name = item.name;
-			address = item.vicinity
-			str += "<li class='ui-li-static ui-body-inherit ui-first-child'>" 
-			    +"<h3>" + name + "</h3><br>" + address + "<img src='" + icon + "' width='53' height='53'></li>";
+			address = item.vicinity;
+			var html = "<li class='ui-li-static ui-body-inherit ui-first-child'>" + "<h3>" + name + "</h3><br>" + address + "<img src='" + icon + "' width='53' height='53'></li>";
+			arr.push(html);
 		});
 
-		str += "</ol>";
-		//console.log(str);
+		arr.push("</ol>");
+		var str = arr.join("");
 
 		$("#results").html(str);
 }
