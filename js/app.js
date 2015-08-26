@@ -7,20 +7,18 @@ if(geoPosition.init()){
 function showResults(results){	
 
 		//Builds ordered list of results	
-		var arr = [ "<h2>Where you can eat right now, ranked by distance</h2>", "<ol data-role='listview' data-inset='true' class='ui-listview ui-listview-inset ui-corner-all ui-shadow'>"];
+		var arr = ["<h2>Where you can eat right now, ranked by distance</h2>", "<ul class='list-group'>"];
 	
 		$.each(results, function(index, item){
 			icon = item.icon;
 			name = item.name;
 			address = item.vicinity;
-			var html = "<li class='ui-li-static ui-body-inherit ui-first-child'>" + "<h3>" + name + "</h3><br>" + address + "<img src='" + icon + "' width='53' height='53'></li>";
+			var html = "<li class='list-group-item'>" + "<h3>" + name + "</h3><span class='address'>" + address + "</span><img src='" + icon + "' width='53' height='53'></li>";
 			arr.push(html);
 		});
 
-		arr.push("</ol>");
-		var str = arr.join("");
-
-		$("#results").html(str);
+		arr.push("</ul>");
+		$("#results").html(arr.join("\n"));
 }
 
 function geoSuccess(p){
