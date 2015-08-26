@@ -5,15 +5,8 @@ api_version: 1
 threadsafe: no
 
 handlers:
-- url: /js
-  static_dir: js
-  
-- url: /css
-  static_dir: css
+- url: /assets
+  static_dir: assets
 
 - url: /.*
   script: code.app
-
-libraries:
-- name: ssl
-  version: latest

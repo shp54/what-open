@@ -1,7 +1,6 @@
 import os
 import webapp2
 import urllib
-from google.appengine.ext.webapp import template
 from google.appengine.api import urlfetch
 
 api_key = 'AIzaSyAsaKDM1E9cv45rSvphS8hv1X7eKtovbBg'
@@ -35,8 +34,7 @@ class GetFoodLocation(webapp2.RequestHandler):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        path = getTemplatePath('index.html')
-        self.response.out.write(template.render(path, {}))
+		self.redirect("/assets/index.html")
         
 app = webapp2.WSGIApplication([
     ('/', MainPage),
