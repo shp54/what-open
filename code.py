@@ -5,9 +5,9 @@ from google.appengine.api import urlfetch
 
 api_key = 'AIzaSyAsaKDM1E9cv45rSvphS8hv1X7eKtovbBg'
 
-def getTemplatePath(name):
-  path = os.path.join(os.path.dirname(__file__), 'templates', name)
-  return path
+def getAsset(name):
+  path = os.path.join(os.path.dirname(__file__), 'assets', name)
+  return file(path).read()
 
 class GetFoodLocation(webapp2.RequestHandler):
   def get(self):
@@ -34,7 +34,8 @@ class GetFoodLocation(webapp2.RequestHandler):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-		self.redirect("/assets/index.html")
+		output = getAsset("index.html")
+		self.response.out.write(output)
         
 app = webapp2.WSGIApplication([
     ('/', MainPage),

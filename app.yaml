@@ -7,6 +7,15 @@ threadsafe: no
 handlers:
 - url: /assets
   static_dir: assets
+  application_readable: true
+  
+- url: /css
+  static_dir: css
+  application_readable: true
+  
+- url: /js
+  static_dir: js
+  application_readable: true
 
 - url: /.*
   script: code.app
