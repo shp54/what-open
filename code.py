@@ -19,7 +19,7 @@ class GetFoodLocation(webapp2.RequestHandler):
     parameters = {
     'key': api_key,
     'location': str(latitude) + ',' + str(longitude), #has to be (latitude,longitude)
-    'types': 'food',
+    'types': 'restaurant',
     'rankby': 'distance',
     'opennow': '' #This is the important part
     }
